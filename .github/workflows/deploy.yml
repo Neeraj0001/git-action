@@ -3,7 +3,7 @@ name: Deploy Static Page
 on:
   push:
     branches:
-      - master  # Change this to your default branch if it's different
+      - master
 
 jobs:
   build:
