@@ -1,9 +1,9 @@
-name: Deploy Static Page
+name: Deploy Hello World
 
 on:
   push:
     branches:
-      - master  # Change this to your default branch if it's different
+      - master
 
 jobs:
   build:
@@ -13,8 +13,8 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
-    - name: Build and Deploy
-      uses: JamesIves/github-pages-deploy-action@4.1.4
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
       with:
-        branch: master
-        folder: .       
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./      
