@@ -3,7 +3,7 @@ name: Deploy Static Page
 on:
   push:
     branches:
-      - master 
+      - master
 
 jobs:
   build:
@@ -12,3 +12,10 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
+
+    - name: Build and Deploy
+      uses: JamesIves/github-pages-deploy-action@4.1.4
+      with:
+        branch: gh-pages
+        folder: .
+
