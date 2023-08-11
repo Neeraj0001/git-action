@@ -17,7 +17,7 @@ jobs:
         run: |
           git checkout --orphan gh-pages
           git rm -rf .
-          cp index.html .
+          cp -r $GITHUB_WORKSPACE/index.html .
           git add index.html
           git commit -m "Deploy HTML to GitHub Pages"
           git push origin gh-pages --force
