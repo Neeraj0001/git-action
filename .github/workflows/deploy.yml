@@ -1,20 +1,24 @@
-name: Deploy Static Page
-
+name: Deploy HTML to GitHub Pages
 on:
   push:
     branches:
-      - master  # Change this to your default branch if it's different
+      - master
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Build and Deploy
-      uses: JamesIves/github-pages-deploy-action@4.1.4
-      with:
-        branch: master  # Change this to the branch you want to deploy to
-        folder: .  
+      - name: Deploy to GitHub Pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git checkout --orphan gh-pages
+          git rm -rf .
+          cp index.html .
+          git add index.html
+          git commit -m "Deploy HTML to GitHub Pages"
+          git push origin gh-pages --force
+
