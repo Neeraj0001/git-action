@@ -1,20 +1,25 @@
-name: Deploy Static Page
+name: Manual Deploy to GitHub Pages
 
 on:
   push:
     branches:
-      - master  # Change this to your default branch if it's different
+      - master
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
-
+    
     steps:
-    - name: Checkout Repository
+    - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Build and Deploy
-      uses: JamesIves/github-pages-deploy-action@4.1.4
-      with:
-        branch: master
-        folder: .  
+    - name: Deploy to GitHub Pages
+      run: |
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "neeraj0001"
+        git clone -b gh-pages https://github.com/Neeraj0001/git-action.git gh-pages
+        rsync -av --delete --exclude=gh-pages --exclude=.git/ ./ gh-pages/
+        cd gh-pages
+        git add .
+        git commit -m "Deploy updates"
+        git push origin gh-pages
